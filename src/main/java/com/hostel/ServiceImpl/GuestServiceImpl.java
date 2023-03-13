@@ -78,10 +78,9 @@ public class GuestServiceImpl implements GuestService{
 			existingGuest.setAge(guest.getAge());
 			Room room = roomRepo.findById(guest.getRoomId()).orElse(null);
 			if(room!=null) {
-				
+				existingGuest.setRoom(room);
+				return guestRepo.save(existingGuest);
 			}
-			guestRepo.save(existingGuest);
-			return existingGuest;
 		}
 		return null;
 	}

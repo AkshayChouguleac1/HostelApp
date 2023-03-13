@@ -59,7 +59,13 @@ public class GuestController {
 	
 	@PutMapping(value = "/updateGuest")
 	public ResponseEntity<Guest> updateGuest(@RequestBody Guest guest){
-		return new ResponseEntity<Guest>(guestService.updateGuest(guest),HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		if(roomService.getRoom(guest.getRoomId())!=null && guestService.getGuest(guest.getGid())!=null) {
+			return new ResponseEntity<Guest>(guestService.updateGuest(guest),HttpStatus.OK);
+		}
+		responseHeaders.set("errormsg", "No such room with this roomId Or Guest with this gid available");
+		return new ResponseEntity<>(responseHeaders,HttpStatus.BAD_REQUEST);
+		
 	}
 	
 	@DeleteMapping(value = "/deleteGuest/{id}")

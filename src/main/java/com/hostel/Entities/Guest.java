@@ -19,9 +19,10 @@ public class Guest {
 	private int gid;
 	private String firstName;
 	private String lastName;
-	private long MobileNo;
+	private long mobileNo;
 	private int age;
 	private String adharNumber;
+	private boolean payment;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonBackReference
 	private Room room;
